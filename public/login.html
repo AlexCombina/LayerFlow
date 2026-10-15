@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ingresar - Caon Print Tracker</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="login-page">
+  <div class="login-card">
+    <div class="login-logo">
+      <span class="cube"></span>
+      <strong style="font-family: var(--font-display); text-transform: uppercase; font-size: 1.1rem;">Caon</strong>
+    </div>
+    <h1>Iniciar sesion</h1>
+    <p class="login-sub">Control de trabajos de impresion 3D, de la solicitud a la entrega.</p>
+
+    <div id="login-alert"></div>
+
+    <form id="login-form">
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com" required autocomplete="username" />
+      </div>
+      <div class="field">
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" name="password" placeholder="••••••••" required autocomplete="current-password" />
+      </div>
+      <button type="submit" class="btn btn-yellow btn-block" id="login-submit">Entrar</button>
+    </form>
+
+    <div class="demo-hint">
+      La primera vez que arrancas el servidor se crea un usuario administrador automaticamente
+      con los datos definidos en tu archivo <code>.env</code> (por defecto
+      <strong>admin@caon.local</strong> / <strong>admin1234</strong>). Puedes crear mas usuarios
+      desde la seccion "Usuarios" una vez dentro.
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>

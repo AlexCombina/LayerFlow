@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayerFlow</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="mobile-topbar">
+    <button class="btn btn-sm" id="btn-open-nav">☰ Menu</button>
+    <strong style="font-family: var(--font-display); text-transform: uppercase;">LayerFlow</strong>
+    <span style="width:70px"></span>
+  </div>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <span class="cube"></span>
+        <div class="brand-text">LayerFlow</div>
+      </div>
+
+      <nav class="nav" id="nav">
+        <button class="nav-link" data-view="dashboard"><span class="nav-icon">◆</span> Dashboard</button>
+        <button class="nav-link" data-view="trabajos"><span class="nav-icon">▣</span> Trabajos</button>
+        <button class="nav-link" data-view="clientes"><span class="nav-icon">☺</span> Clientes</button>
+        <button class="nav-link" data-view="impresoras"><span class="nav-icon">⎙</span> Impresoras</button>
+        <button class="nav-link" data-view="usuarios" id="nav-usuarios"><span class="nav-icon">⚙</span> Usuarios</button>
+        <button class="nav-link" data-view="perfil"><span class="nav-icon">●</span> Mi cuenta</button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-chip">
+          <div class="avatar" id="user-avatar">--</div>
+          <div class="who">
+            <div class="name" id="user-nombre">Cargando...</div>
+            <div class="role" id="user-rol">-</div>
+          </div>
+        </div>
+        <button class="btn btn-sm btn-block" id="btn-logout">Cerrar sesion</button>
+      </div>
+    </aside>
+
+    <div class="sidebar-backdrop hidden" id="sidebar-backdrop"></div>
+
+    <main class="main">
+      <!-- DASHBOARD -->
+      <section class="view" id="view-dashboard">
+        <div class="topbar">
+          <div>
+            <h1 class="page-title">Dashboard</h1>
+            <p class="page-sub">Resumen general de los trabajos de impresion 3D.</p>
+          </div>
+          <button class="btn btn-yellow" data-action="nuevo-trabajo">+ Nuevo trabajo</button>
+        </div>
+
+        <div class="stats-grid" id="stats-grid">
+          <!-- tarjetas generadas por dashboard.js -->
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="card">
+            <h3>Proximas entregas</h3>
+            <div id="dashboard-proximas"></div>
+          </div>
+          <div class="card">
+            <h3>Trabajos recientes</h3>
+            <div id="dashboard-recientes"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TRABAJOS -->
+      <section class="view" id="view-trabajos">
+        <div class="topbar">
+          <div>
+            <h1 class="page-title">Trabajos</h1>
+            <p class="page-sub">Desde la solicitud hasta la entrega.</p>
+          </div>
+          <button class="btn btn-yellow" data-action="nuevo-trabajo">+ Nuevo trabajo</button>
+        </div>
+
+        <div class="toolbar">
+          <input type="text" class="search-input" id="trabajos-buscar" placeholder="Buscar por pieza, codigo o cliente..." />
+          <select id="trabajos-filtro-estado">
+            <option value="">Todos los estados</option>
+          </select>
+          <select id="trabajos-filtro-prioridad">
+            <option value="">Toda prioridad</option>
+          </select>
+          <label class="btn btn-sm" style="cursor:pointer;">
+            <input type="checkbox" id="trabajos-filtro-atrasados" style="margin-right:6px;" />Solo atrasados
+          </label>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Codigo</th>
+                <th>Pieza</th>
+                <th>Cliente</th>
+                <th>Estado</th>
+                <th>Prioridad</th>
+                <th>Entrega estimada</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="trabajos-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- CLIENTES -->
+      <section class="view" id="view-clientes">
+        <div class="topbar">
+          <div>
+            <h1 class="page-title">Clientes</h1>
+            <p class="page-sub">Personas o empresas que solicitan piezas.</p>
+          </div>
+          <button class="btn btn-yellow" data-action="nuevo-cliente">+ Nuevo cliente</button>
+        </div>
+
+        <div class="toolbar">
+          <input type="text" class="search-input" id="clientes-buscar" placeholder="Buscar cliente..." />
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Telefono</th>
+                <th>Trabajos</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="clientes-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- IMPRESORAS -->
+      <section class="view" id="view-impresoras">
+        <div class="topbar">
+          <div>
+            <h1 class="page-title">Impresoras</h1>
+            <p class="page-sub">Parque de maquinas disponibles para imprimir.</p>
+          </div>
+          <button class="btn btn-yellow" data-action="nueva-impresora">+ Nueva impresora</button>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Modelo</th>
+                <th>Estado</th>
+                <th>Trabajos activos</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="impresoras-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- USUARIOS -->
+      <section class="view" id="view-usuarios">
+        <div class="topbar">
+          <div>
+            <h1 class="page-title">Usuarios</h1>
+            <p class="page-sub">Cuentas con acceso al sistema.</p>
+          </div>
+          <button class="btn btn-yellow" data-action="nuevo-usuario">+ Nuevo usuario</button>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Estado</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="usuarios-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- PERFIL -->
+      <section class="view" id="view-perfil">
+        <div class="topbar">
+          <div>
+            <h1 class="page-title">Mi cuenta</h1>
+            <p class="page-sub">Datos de la sesion actual.</p>
+          </div>
+        </div>
+
+        <div class="card" style="max-width: 480px;">
+          <h3>Cambiar contraseña</h3>
+          <form id="perfil-password-form">
+            <div class="field">
+              <label for="perfil-actual">Contraseña actual</label>
+              <input type="password" id="perfil-actual" required />
+            </div>
+            <div class="field">
+              <label for="perfil-nueva">Contraseña nueva</label>
+              <input type="password" id="perfil-nueva" required minlength="6" />
+            </div>
+            <button type="submit" class="btn btn-yellow">Actualizar contraseña</button>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/modelos3d.js"></script>
+  <script src="js/clientes.js"></script>
+  <script src="js/impresoras.js"></script>
+  <script src="js/trabajos.js"></script>
+  <script src="js/usuarios.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
